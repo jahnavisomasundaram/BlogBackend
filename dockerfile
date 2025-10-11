@@ -19,8 +19,7 @@ COPY --from=build /app/out .
 # Expose the port Render will use
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
-ENV DOTNET_RUNNING_IN_CONTAINER=true
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 
 # Entry point — make sure your project builds to BlogBackend.dll
 ENTRYPOINT ["dotnet", "BlogAppBackend.dll"]
