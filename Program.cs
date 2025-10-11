@@ -1,44 +1,34 @@
 using BlogAppBackend.Services;
-using Microsoft.AspNetCore.SignalR;
+// You might need other 'using' statements depending on your project
+// using Microsoft.AspNetCore.SignalR; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// --- IMPROVED CORS POLICY ---
+// Reads the frontend URL from environment variables for production,
+// but defaults to localhost if not found (for local development).
+var frontendUrl = builder.Configuration["FRONTEND_URL"] ?? "http://localhost:5089";
 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
-        policy.WithOrigins("https://localhost:7157", "http://localhost:5089")
+        policy.WithOrigins(frontendUrl, "https://localhost:7157", "http://localhost:5089")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
 
-//builder.Services.AddSignalR();
 
-//builder.Services.AddSignalR().AddHubOptions<NotificationHub>(options =>
-//{
-//    options.EnableDetailedErrors = true;
-//});
-
-
+// Register your custom services
 builder.Services.AddSingleton<RegisterServices>();
-
 builder.Services.AddSingleton<SupabaseService>();
-
 builder.Services.AddHttpClient<ApiAuth>();
 
-//builder.Services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
-
-
 var app = builder.Build();
-
-//app.MapHub<NotificationHub>("/notificationhub");
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -49,12 +39,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("FrontendPolicy");
-
+// --- APPLY THE CORS POLICY ---
+// This single line applies the default policy defined above.
 app.UseCors();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+// --- ROOT ENDPOINT TO FIX 404 ERROR ---
+// This handles requests to the base URL (e.g., your .onrender.com address)
+app.MapGet("/", () => Results.Ok("BlogBackend API is running!"));
 
 app.Run();
