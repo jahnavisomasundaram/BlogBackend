@@ -63,3 +63,4 @@ C:\Users\Jahnavi\OneDrive\Desktop\Wise Work\BlogAppBackend\bin\Debug\net8.0\Micr
 C:\Users\Jahnavi\OneDrive\Desktop\Wise Work\BlogAppBackend\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 C:\Users\Jahnavi\OneDrive\Desktop\Wise Work\BlogAppBackend\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\Jahnavi\OneDrive\Desktop\Wise Work\BlogAppBackend\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\Jahnavi\OneDrive\Desktop\Wise Work\BlogAppBackend\obj\Debug\net8.0\BlogAppBackend.sourcelink.json
