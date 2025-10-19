@@ -17,7 +17,7 @@ var frontendUrl = builder.Configuration["FRONTEND_URL"] ?? "http://localhost:508
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
-        policy.WithOrigins(frontendUrl, "https://localhost:7157", "http://localhost:5089")
+        policy.WithOrigins(frontendUrl, "https://blogfrontend-whao.onrender.com", "http://localhost:5089")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
